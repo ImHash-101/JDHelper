@@ -3,7 +3,8 @@ const { genToken,verfiyToken } = require("../util/jwt")
 const Cookie = require("../util/Cookie")
 const isLogin = require("../util/isLogin")
 const { json } = require("express/lib/response")
-exports.genToken = (req,res,next)=>{
+const { Op,Model } = require("sequelize");
+exports.genToken = async (req,res,next)=>{
     //从request获取信息
     const req_data = {
         pt_pin :req.body.pt_pin,
@@ -12,46 +13,41 @@ exports.genToken = (req,res,next)=>{
     let cookie = new Cookie(req_data.pt_pin,req_data.pt_key) 
 
     console.log(cookie.toString())
-    isLogin(cookie.toString())
-        .then((data)=>{
-            return new Promise((resolve,reject)=>{
-                let islogin = JSON.parse(data).islogin
-                //Cookie有效 islogin == 1 ，无效 == 0
-                if(islogin==1)resolve(islogin) 
-                else reject(islogin)
-            })
-        })
-        .then((islogin)=>{
-            //Cookie有效
-            console.log("Cookie有效 "+islogin)
-            // next()
-            req.models.User.find({pt_pin:cookie.pt_pin},(err,result)=>{
-                if(err)next(err)
-                else{
-                    //用户存在
-                    if(result.length>0){
-                        res.status(200).json({
-                            token :genToken(result)
-                        })
-                    }else{
-                    //用户不存在
-                        req.models.User.create(req_data,(err,result)=>{
-                            if(err)next(err)
-                            else{
-                                res.status(200).json({
-                                    token :genToken(result)
-                                })
-                            }
-                        })
-                    }
-                }
+    const data = await isLogin(cookie.toString())
+        .catch((err)=>{next(err)})
+        
+    //Cookie有效 islogin == 1 ，无效 == 0
+    let islogin = JSON.parse(data).islogin
+    
+    if(islogin==1){
 
-            })
-        },(islogin)=>{
-            console.log("Cookie无效 "+islogin)
-            //Cookie无效
-            next("Cookie无效")
+
+
+       var user =await  req.sequelize.models.user.findOne({
+            where:{
+                pt_pin:{
+                    [Op.eq]:cookie.pt_pin
+                }
+            }
         })
+
+        if(!user){
+            user = await req.sequelize.models.user.build(req_data)
+            await user.save()
+        }
+
+        const token = await genToken(user.toJSON())
+        res.status(200).json({
+            token
+        })
+    }
+    else{
+        const err = new Error("Cookie 无效")
+        err.code = 401
+        next(err)
+    }
+
+
 }
 
 exports.verfiyToken = (req,res)=>{

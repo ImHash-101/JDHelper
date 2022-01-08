@@ -5,7 +5,8 @@ const request = require("request")
 const sync_request = (url,options)=>{
     return new Promise((reslove,reject)=>{
         request(url,options,(err,req,body)=>{
-            reslove(body)
+            if(err)reject(err)
+            else reslove(body)
         })
     })
 }

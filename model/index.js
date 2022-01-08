@@ -1,17 +1,28 @@
-const orm = require("orm")
-const { DB_URL } = require("../config/default")
-module.exports= ()=>{
-    return orm.express(DB_URL, {
-        define: (db,models,next)=>{
-            models.User = db.define("user",{
-                id:      {type: 'serial', key: true}, // the auto-incrementing primary key
-                pt_pin:    {type: 'text'},
-                pt_key: {type: 'text'},
-                auth_level:{type:'integer',defaultValue:0}
+const { Sequelize } = require('sequelize')
+const userModel = require("./user")
+const { DB_CONFIG } = require("../config/default")
+
+module.exports = ()=>{
+    return async (req,res,next)=>{
+        const sequelize = new Sequelize(
+            DB_CONFIG.database,
+            DB_CONFIG.user,
+            DB_CONFIG.password,
+            {
+                dialect:DB_CONFIG.protocol,
+                host:DB_CONFIG.host,
+                port:3306
             })
-            
-            db.sync() //同步模型
-            next()
-        }
-    })
+
+        sequelize.define("user",userModel,{
+            tableName:"user",
+        })
+        req.sequelize = sequelize
+
+        sequelize.sync()
+        // ;(await sequelize.models.user.findOne()).toJSON
+        // const users = await sequelize.models.user.findAll()
+        // console.log(users)
+        next()
+    }
 }

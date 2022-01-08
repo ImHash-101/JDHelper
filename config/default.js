@@ -1,6 +1,12 @@
 module.exports = {
-    // DB_URL:"mysql://helper:passwd@1.116.164.17:3618/jd",
-    DB_URL:"mysql://root:root@localhost/jd",
     PRIVATE_KEY: "helper",
-    WEB_PORT : 3000
+    WEB_PORT : 3000,
+    DB_CONFIG :{
+        host:     "192.168.3.186",
+        database: "jd",
+        protocol:  "mysql",
+        port:        3306,
+        user:      "root",
+        password:  "root"
+      }
 }

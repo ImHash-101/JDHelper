@@ -7,7 +7,8 @@ const model = require("./model")
 const app = express()
 const error = require("./middleware/error")
 const monitor = require("./middleware/monitor")
-app.use(monitor())
+
+// app.use(monitor())
 //挂载数据库
 app.use(model())
 //解析body
