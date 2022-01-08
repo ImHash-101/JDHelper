@@ -1,9 +1,8 @@
-const e = require("express")
 const { genToken,verfiyToken } = require("../util/jwt")
 const Cookie = require("../util/Cookie")
 const isLogin = require("../util/isLogin")
 const { json } = require("express/lib/response")
-const { Op,Model } = require("sequelize");
+const { Op } = require("sequelize");
 exports.genToken = async (req,res,next)=>{
     //从request获取信息
     const req_data = {
@@ -17,11 +16,9 @@ exports.genToken = async (req,res,next)=>{
         .catch((err)=>{next(err)})
         
     //Cookie有效 islogin == 1 ，无效 == 0
-    let islogin = JSON.parse(data).islogin
+    let islogin = await JSON.parse(data).islogin
     
     if(islogin==1){
-
-
 
        var user =await  req.sequelize.models.user.findOne({
             where:{
