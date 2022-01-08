@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "express": "^4.17.2",
+    "express-validator": "^6.14.0",
+    "jsonwebtoken": "^8.5.1",
+    "mysql": "^2.18.1",
+    "orm": "^5.0.9",
+    "pm2": "^5.1.2",
+    "Promise": "^1.0.5",
+    "request": "^2.88.2"
+  }
+}
