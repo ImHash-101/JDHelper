@@ -1,7 +1,6 @@
 const { genToken,verfiyToken } = require("../util/jwt")
 const Cookie = require("../util/Cookie")
 const isLogin = require("../util/isLogin")
-const { json } = require("express/lib/response")
 const { Op } = require("sequelize");
 exports.genToken = async (req,res,next)=>{
     //从request获取信息
