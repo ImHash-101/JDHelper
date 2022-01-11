@@ -7,6 +7,7 @@ module.exports = {
         protocol:  "mysql",
         port:        3306,
         user:      "root",
-        password:  "root"
+        password:  "root",
+        schema:"user"
       }
 }

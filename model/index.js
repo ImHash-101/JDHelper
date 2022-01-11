@@ -11,11 +11,11 @@ module.exports = ()=>{
             {
                 dialect:DB_CONFIG.protocol,
                 host:DB_CONFIG.host,
-                port:3306
+                port:DB_CONFIG.port
             })
 
-        sequelize.define("user",userModel,{
-            tableName:"user",
+        sequelize.define(DB_CONFIG.schema,userModel,{
+            tableName:DB_CONFIG.schema,
         })
         req.sequelize = sequelize
 
