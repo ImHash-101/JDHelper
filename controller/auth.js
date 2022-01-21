@@ -42,14 +42,8 @@ exports.genToken = async (req,res,next)=>{
         err.code = 401
         next(err)
     }
-
-
 }
 
 exports.verfiyToken = (req,res)=>{
-    const result = verfiyToken(req.body.token)
-    console.log(result)
-    if(result==null)res.status(401).end()
-    else res.status(200).end()
-
+    res.status(200).end()
 }

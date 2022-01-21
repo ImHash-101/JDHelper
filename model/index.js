@@ -1,6 +1,8 @@
 const { Sequelize } = require('sequelize')
 const userModel = require("./user")
+const detail = require("./detail")
 const { DB_CONFIG } = require("../config/default")
+const SqlString = require('mysql/lib/protocol/SqlString')
 
 module.exports = ()=>{
     return async (req,res,next)=>{
@@ -14,11 +16,10 @@ module.exports = ()=>{
                 port:DB_CONFIG.port
             })
 
-        sequelize.define(DB_CONFIG.schema,userModel,{
-            tableName:DB_CONFIG.schema,
-        })
-        req.sequelize = sequelize
+        sequelize.define("user",userModel)
+        sequelize.define("detail",detail)
 
+        req.sequelize = sequelize
         sequelize.sync()
         // ;(await sequelize.models.user.findOne()).toJSON
         // const users = await sequelize.models.user.findAll()
