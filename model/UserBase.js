@@ -14,6 +14,10 @@ module.exports ={
     auth_level:{
         type:DataTypes.INTEGER,
         defaultValue: 0
+    },
+    isOverdue:{
+        type:DataTypes.BOOLEAN,
+        defaultValue:false
     }
 
 }

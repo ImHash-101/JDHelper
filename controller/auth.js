@@ -10,11 +10,7 @@ exports.genToken = async (req,res,next)=>{
     }    
     let cookie = new Cookie(req_data.pt_pin,req_data.pt_key) 
 
-    const data = await isLogin(cookie.toString())
-        .catch((err)=>{next(err)})
-        
-    //Cookie有效 islogin == 1 ，无效 == 0
-    let islogin = await JSON.parse(data).islogin
+    const islogin = await isLogin(cookie.toString()).catch((err)=>{next(err)})
     
     if(islogin==1){
 

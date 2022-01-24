@@ -5,6 +5,7 @@ const auth = require("./auth")
 const userBase = require("./userBase")
 const userInfo = require("./userInfo")
 const beanInfo = require("./beanInfo")
+const isOverdue = require("./isOverdue")
 // 数据检验
 const { verfiyValidations } = require("../validation/auth")
 // 控制器
@@ -29,5 +30,7 @@ router.use("/userBase",userBase)
 router.use("/userInfo",userInfo)
 
 router.use("/beanInfo",beanInfo)
+
+router.use("/isOverdue",isOverdue)
 
 module.exports = router;
