@@ -1,14 +1,20 @@
 const express = require("express")
 const router  = require("./router")
-const { WEB_PORT, HOST } = require("./config/default")
+const { WEB_PORT, HOST } = require("./config")
 
-const orm = require("orm")
 const model = require("./model")
 const app = express()
 const error = require("./middleware/error")
-const monitor = require("./middleware/monitor")
 
-// app.use(monitor())
+const fs = require('fs')
+const morgan = require('morgan')
+const path = require('path')
+ 
+// create a write stream (in append mode)
+var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
+// setup the logger
+app.use(morgan('combined', { stream: accessLogStream }))
+
 //挂载数据库
 app.use(model())
 //解析body

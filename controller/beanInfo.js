@@ -11,9 +11,7 @@ exports.getBeanInfo = async (req,res)=>{
     }
 
     
-    const beanInfo = await get(req,req.user.id)
-    console.log(req.user.id)
-    console.log(beanInfo.dataValues)
+    const beanInfo = await get(req,req.userBase.id)
 
     res.status(200).json(beanInfo.dataValues)
 }

@@ -4,7 +4,7 @@ const BeanInfoModel = require("./BeanInfo")
 const UserBaseModel = require("./UserBase")
 const UserInfoModel = require("./UserInfo")
 
-const { DB_CONFIG } = require("../config/default")
+const { DB_CONFIG } = require("../config")
 
 module.exports = ()=>{
     return async (req,res,next)=>{

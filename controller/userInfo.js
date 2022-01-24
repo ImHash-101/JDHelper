@@ -11,9 +11,7 @@ exports.getUserInfo = async (req,res)=>{
     }
 
     
-    const userInfo = await get(req,req.user.id)
-    console.log(req.user.id)
-    console.log(userInfo.dataValues)
+    const userInfo = await get(req,req.userBase.id)
 
     res.status(200).json(userInfo.dataValues)
 }

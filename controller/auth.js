@@ -10,7 +10,6 @@ exports.genToken = async (req,res,next)=>{
     }    
     let cookie = new Cookie(req_data.pt_pin,req_data.pt_key) 
 
-    console.log(cookie.toString())
     const data = await isLogin(cookie.toString())
         .catch((err)=>{next(err)})
         

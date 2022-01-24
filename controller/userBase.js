@@ -10,21 +10,9 @@ exports.getUserBase = async (req,res)=>{
         console.log("not All")
     }
 
-    
-    const user = await get(req,req.user.id)
-    console.log(req.user.id)
-    console.log(user.dataValues)
-
-    res.status(200).json(user.dataValues)
-}
-
-const get = (req,id)=>{
-    return  req.sequelize.models.userBase.findOne({
-        attributes:['pt_pin','pt_key'],
-        where:{
-            id:{
-                [Op.eq]:id
-            }
-        }
+    res.status(200).json({
+        pt_pin:req.userBase.pt_pin,
+        pt_key:req.userBase.pt_key
     })
 }
+
