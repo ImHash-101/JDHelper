@@ -19,7 +19,7 @@ exports.genToken = async (req,res,next)=>{
     
     if(islogin==1){
 
-       var user =await  req.sequelize.models.user.findOne({
+       var userBase =await  req.sequelize.models.userBase.findOne({
             where:{
                 pt_pin:{
                     [Op.eq]:cookie.pt_pin
@@ -27,12 +27,12 @@ exports.genToken = async (req,res,next)=>{
             }
         })
 
-        if(!user){
-            user = await req.sequelize.models.user.build(req_data)
-            await user.save()
+        if(!userBase){
+            userBase = await req.sequelize.models.userBase.build(req_data)
+            await userBase.save()
         }
 
-        const token = await genToken(user.toJSON())
+        const token = await genToken(userBase.toJSON())
         res.status(200).json({
             token
         })
