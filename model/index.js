@@ -1,8 +1,8 @@
 const { Sequelize } = require('sequelize')
-const userModel = require("./user")
+const UserModel = require("./User")
 const detail = require("./detail")
 const { DB_CONFIG } = require("../config/default")
-const SqlString = require('mysql/lib/protocol/SqlString')
+
 
 module.exports = ()=>{
     return async (req,res,next)=>{

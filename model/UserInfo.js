@@ -1,5 +1,4 @@
-const { DataTypes } = require('sequelize')
-
+const { DataTypes } = require("sequelize")
 module.exports = {
     id: {
         allowNull: false,
@@ -7,32 +6,34 @@ module.exports = {
         primaryKey: true,
         type: DataTypes.INTEGER,
         references: {
-          model: 'users',
-          key: 'id'
+            model: 'users',
+            key: 'id'
         },
         onUpdate: 'cascade',
         onDelete: 'cascade' 
-      },
+    },
+    // 昵称
     nickName:{
         type:DataTypes.STRING,
-        defaultValue:"你没有名字"
-      },
-    bean_num:{
+        defaultValue:'你没有名字'
+    },
+    // 头像url地址
+    headImageUrl:{
+        type:DataTypes.STRING
+    },
+    // 京豆总数
+    beanNum:{
         type: DataTypes.INTEGER,
         defaultValue:0
     },
-    last_outcome:{
-        type: DataTypes.INTEGER,
+    // 优惠券
+    couponNum:{
+        type:DataTypes.INTEGER,
         defaultValue:0
     },
-    last_income:{
-        type: DataTypes.INTEGER,
-        defaultValue:0
-    },
-    readPacket_current:{
+    //红包
+    redBalance:{
         type:DataTypes.DOUBLE,
         defaultValue:0
     }
-
-
 }
