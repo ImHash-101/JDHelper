@@ -20,7 +20,7 @@ exports.getBeanInfo = async (req,res)=>{
 
 const get = (req,id)=>{
     return  req.sequelize.models.beanInfo.findOne({
-        attributes:['todayIncome','todayOutcome'],
+        attributes:['todayIncome','todayOutcome','lastIncome','lastOutcome'],
         where:{
             id:{
                 [Op.eq]:id

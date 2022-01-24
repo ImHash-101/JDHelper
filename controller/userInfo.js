@@ -20,7 +20,7 @@ exports.getUserInfo = async (req,res)=>{
 
 const get = (req,id)=>{
     return  req.sequelize.models.userInfo.findOne({
-        attributes:['beanNum','nickName'],
+        attributes:['nickName','beanNum','headImageUrl','redBalance','couponNum'],
         where:{
             id:{
                 [Op.eq]:id
