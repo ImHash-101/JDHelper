@@ -1,8 +1,8 @@
 const express = require("express")
 const BeanInfo = express.Router()
-const beanInfoCtr = require("../controller/beanInfo")
+const { getBeanInfo } = require("../controller/beanInfo")
 
-BeanInfo.post("/",beanInfoCtr)
+BeanInfo.post("/",getBeanInfo)
 
 
 module.exports = BeanInfo

@@ -1,6 +1,6 @@
 const { Op } =require("sequelize")
 
-module.exports.getUserBase = async (req,res)=>{
+exports.getUserBase = async (req,res)=>{
     
     const isAll = req.query.isAll
 

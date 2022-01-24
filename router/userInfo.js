@@ -1,8 +1,8 @@
 const express = require("express")
 const UserInfo = express.Router()
-const userInfoCtr = require("../controller/userInfo")
+const { getUserInfo } = require("../controller/userInfo")
 
-UserInfo.post("/",userInfoCtr)
+UserInfo.post("/",getUserInfo)
 
 
 module.exports = UserInfo

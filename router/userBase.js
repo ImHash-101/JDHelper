@@ -1,8 +1,8 @@
 const express = require("express")
 const userBase = express.Router()
-const userBaseCtr = require("../controller/userBase")
+const { getUserBase } = require("../controller/userBase")
 
-userBase.post("/",userBaseCtr)
+userBase.post("/",getUserBase)
 
 
 module.exports = userBase
