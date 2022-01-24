@@ -1,8 +1,10 @@
 const { Sequelize } = require('sequelize')
-const UserModel = require("./User")
-const detail = require("./detail")
-const { DB_CONFIG } = require("../config/default")
 
+const BeanInfoModel = require("./BeanInfo")
+const UserBaseModel = require("./UserBase")
+const UserInfoModel = require("./UserInfo")
+
+const { DB_CONFIG } = require("../config/default")
 
 module.exports = ()=>{
     return async (req,res,next)=>{
@@ -16,14 +18,19 @@ module.exports = ()=>{
                 port:DB_CONFIG.port
             })
 
-        sequelize.define("user",userModel)
-        sequelize.define("detail",detail)
+        const UserBase = await sequelize.define("userBase",UserBaseModel)
+
+        const UserInfo = await sequelize.define("userInfo",UserInfoModel)
+    
+        const BeanInfo = await sequelize.define("beanInfo",BeanInfoModel)
+    
+        // await sequelize.sync()
+    
+        // await sequelize.query("CREATE TRIGGER autoAdd AFTER INSERT ON userBases FOR EACH ROW BEGIN INSERT INTO userInfos (`id`,`createdAt`,`updatedAt`) VALUES (NEW.id,NEW.createdAt,NEW.updatedAt); INSERT INTO beanInfos (`id`,`createdAt`,`updatedAt`) VALUES (NEW.id,NEW.createdAt,NEW.updatedAt); END")
+        
 
         req.sequelize = sequelize
-        sequelize.sync()
-        // ;(await sequelize.models.user.findOne()).toJSON
-        // const users = await sequelize.models.user.findAll()
-        // console.log(users)
+
         next()
     }
 }

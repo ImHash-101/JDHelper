@@ -1,25 +1,33 @@
 const express = require("express")
+// 路由
 const router = express.Router()
 const auth = require("./auth")
-const detail = require("./detail")
+const userBase = require("./userBase")
+const userInfo = require("./userInfo")
+const beanInfo = require("./beanInfo")
+// 数据检验
 const { verfiyValidations } = require("../validation/auth")
+// 控制器
 const { verfiyToken } =require("../controller/auth")
+// 中间件
 const  checkToken = require("../middleware/checkToken")
-
 
 //token
 router.use("/auth",auth)
 
+// 检查Token
 router.use(verfiyValidations,checkToken())
 
-
-// ------**-以下需要token-**--------
+// -------以下需要token---------
 
 router.post("/auth/verfiy",verfiyToken)
 
-
 //用户信息
-router.use("/detail",detail)
 
+router.use("/userBase",userBase)
+
+router.use("/userInfo",userInfo)
+
+router.use("/beanInfo",beanInfo)
 
 module.exports = router;
