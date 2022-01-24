@@ -29,7 +29,13 @@ exports.genToken = async (req,res,next)=>{
             await userBase.update({
                 ...req_data
             })
-            await req.sequelize.models.userBase.findByPK(userBase.getDataValue('id'))
+            userBase = await req.sequelize.models.userBase.findOne({
+                where:{
+                    pt_pin:{
+                        [Op.eq]:cookie.pt_pin
+                    }
+                }
+            })
         }
 
         const token = await genToken(userBase.toJSON())
