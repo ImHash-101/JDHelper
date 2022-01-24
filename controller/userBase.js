@@ -20,6 +20,7 @@ exports.getUserBase = async (req,res)=>{
 
 const get = (req,id)=>{
     return  req.sequelize.models.userBase.findOne({
+        attributes:['pt_pin','pt_key'],
         where:{
             id:{
                 [Op.eq]:id
