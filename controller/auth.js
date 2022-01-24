@@ -25,6 +25,11 @@ exports.genToken = async (req,res,next)=>{
         if(!userBase){
             userBase = await req.sequelize.models.userBase.build(req_data)
             await userBase.save()
+        }else{
+            await userBase.update({
+                ...req_data
+            })
+            await req.sequelize.models.userBase.findByPK(userBase.getDataValue('id'))
         }
 
         const token = await genToken(userBase.toJSON())
