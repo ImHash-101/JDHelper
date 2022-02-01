@@ -5,11 +5,13 @@ module.exports ={
         primaryKey:true,
         autoIncrementIdentity:true
     },
-    pt_pin:{
+    userName:{
         type:DataTypes.STRING,
+        allowNull: false
     },
-    pt_key:{
-        type:DataTypes.STRING
+    passwd:{
+        type:DataTypes.STRING,
+        allowNull: false
     },
     auth_level:{
         type:DataTypes.INTEGER,

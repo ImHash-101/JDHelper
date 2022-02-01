@@ -6,7 +6,7 @@ module.exports = {
         primaryKey: true,
         type: DataTypes.INTEGER,
         references: {
-            model: 'users',
+            model: 'userBases',
             key: 'id'
         },
         onUpdate: 'cascade',
@@ -20,6 +20,10 @@ module.exports = {
     // 头像url地址
     headImageUrl:{
         type:DataTypes.STRING
+    },
+    //qq号
+    qqNum:{
+        type:DataTypes.INTEGER
     },
     // 京豆总数
     beanNum:{
@@ -35,5 +39,10 @@ module.exports = {
     redBalance:{
         type:DataTypes.DOUBLE,
         defaultValue:0
+    },
+    //是否过期
+    isOverdue:{
+        type:DataTypes.BOOLEAN,
+        defaultValue:false
     }
 }

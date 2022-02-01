@@ -3,6 +3,8 @@ const { Sequelize } = require('sequelize')
 const BeanInfoModel = require("./BeanInfo")
 const UserBaseModel = require("./UserBase")
 const UserInfoModel = require("./UserInfo")
+const ManagerModel =  require("./Manager")
+
 
 const { DB_CONFIG } = require("../config")
 
@@ -23,6 +25,8 @@ module.exports = ()=>{
         const UserInfo = await sequelize.define("userInfo",UserInfoModel)
     
         const BeanInfo = await sequelize.define("beanInfo",BeanInfoModel)
+
+        const Manager = await sequelize.define("manager",ManagerModel)
     
         // await sequelize.sync()
     

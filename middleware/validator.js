@@ -1,5 +1,4 @@
-const express = require('express');
-const { validationResult, ValidationChain } = require('express-validator');
+const { validationResult } = require('express-validator');
 // can be reused by many routes
 
 // parallel processing

@@ -28,5 +28,3 @@ app.use(error())
 app.listen(WEB_PORT,HOST,()=>{
     console.log('The serveice runing at http://%s:%d',HOST,WEB_PORT)
 })
-
-

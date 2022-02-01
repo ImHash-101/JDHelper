@@ -2,7 +2,7 @@ const { genToken,verfiyToken } = require("../util/jwt")
 const Cookie = require("../util/Cookie")
 const isLogin = require("../util/isLogin")
 const { Op } = require("sequelize");
-exports.genToken = async (req,res,next)=>{
+exports.getUserToken = async (req,res,next)=>{
     //从request获取信息
     const req_data = {
         pt_pin :req.body.pt_pin,
@@ -14,7 +14,7 @@ exports.genToken = async (req,res,next)=>{
     
     if(islogin==1){
 
-       var userBase =await  req.sequelize.models.userBase.findOne({
+        var userBase =await  req.sequelize.models.userBase.findOne({
             where:{
                 pt_pin:{
                     [Op.eq]:cookie.pt_pin
@@ -38,18 +38,60 @@ exports.genToken = async (req,res,next)=>{
             })
         }
 
-        const token = await genToken(userBase.toJSON())
+        const token = await genToken({
+            type:1,
+            info:userBase.toJSON()
+        })
         res.status(200).json({
+            code:200,
+            message:"success",
             token
         })
     }
     else{
-        const err = new Error("Cookie 无效")
+        const err = new Error("Cookie 已过期")
         err.code = 401
         next(err)
     }
 }
 
+
+exports.getManagerToken = async (req,res,next)=>{
+    //从request获取信息
+    const req_data = {
+        userName :req.body.userName,
+        passwd :req.body.passwd
+    }
+    
+    const manager = await req.sequelize.models.manager.findOne({
+        where:req_data
+    })
+
+
+
+    if(manager){
+        const token = genToken({
+            type:0,
+            info:manager.toJSON()
+        })
+
+        res.status(200).json({
+            code:200,
+            message:"success",
+            token
+        })
+    }else{
+        const err = new Error("用户名或密码错误")
+        err.code = 401
+        next(err)
+    }
+
+}
+
 exports.verfiyToken = (req,res)=>{
-    res.status(200).end()
+    console.log(req.manager||req.userBase)
+    res.status(200).json({
+        code:200,
+        message:"ok",
+    })
 }
