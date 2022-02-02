@@ -48,13 +48,15 @@ exports.addUser = async (req,res,next)=>{
         }
         userBase = await req.sequelize.models.userBase.build(req_data)
 
+        await userBase.save()
+
+
         const userInfo = await req.sequelize.models.userInfo.findOne({
             where:{
                 pt_pin:req_data.pt_pin
             }
         })
     
-        await userBase.save()
 
         await userInfo.update({
             qqNum:req.body.qqNum

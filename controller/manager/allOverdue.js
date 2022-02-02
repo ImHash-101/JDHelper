@@ -14,8 +14,6 @@ exports.getAlloverdue = async (req,res,next)=>{
         qqNum.push(qq)
     }
 
-    console.log(qqNum)
-
     res.status(200).json(qqNum)
 
 }
