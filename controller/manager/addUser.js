@@ -14,34 +14,9 @@ exports.addUser = async (req,res,next)=>{
     
     if(islogin==1){
 
-       var userBase =await  req.sequelize.models.userBase.findOne({
-            where:{
-                pt_pin:{
-                    [Op.eq]:cookie.pt_pin
-                }
-            }
-        })
-
-        if(!userBase){
-            userBase = await req.sequelize.models.userBase.build(req_data)
-            await userBase.save()
-        }else{
-            await userBase.update({
-                ...req_data
-            })
-            userBase = await req.sequelize.models.userBase.findOne({
-                where:{
-                    pt_pin:{
-                        [Op.eq]:cookie.pt_pin
-                    }
-                }
-            })
-        }
-
-        const token = await genToken(userBase.toJSON())
-        res.status(200).json({
-            token
-        })
+        userBase = await req.sequelize.models.userBase.build(req_data)
+        await userBase.save()
+        res.status(200).end()
     }
     else{
         const err = new Error("Cookie 无效")
