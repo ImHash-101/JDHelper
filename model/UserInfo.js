@@ -1,13 +1,12 @@
 const { DataTypes } = require("sequelize")
 module.exports = {
-    id: {
-        allowNull: false,
-        autoIncrement: false,
+    pt_pin: {
         primaryKey: true,
-        type: DataTypes.INTEGER,
+        allowNull: false,
+        type: DataTypes.STRING,
         references: {
             model: 'userBases',
-            key: 'id'
+            key: 'pt_pin'
         },
         onUpdate: 'cascade',
         onDelete: 'cascade' 

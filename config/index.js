@@ -41,4 +41,4 @@ const local = {
       }
   }
 
-module.exports = online
+module.exports = test

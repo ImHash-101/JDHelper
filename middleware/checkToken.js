@@ -13,7 +13,8 @@ module.exports =(type)=>{
                 if(result==null){
                     const err = new Error("token无效")
                     err.code = 401
-                    next(err)                    
+                    next(err)    
+                    return                
                 }
 
                 const manager = await req.sequelize.models.manager.findOne({
@@ -42,6 +43,7 @@ module.exports =(type)=>{
                     const err = new Error("token无效")
                     err.code = 401
                     next(err)
+                    return
                 }
                 const cookie = new Cookie(result.info.pt_pin,result.info.pt_key)
 
@@ -51,6 +53,7 @@ module.exports =(type)=>{
                     const err = new Error("Cookie 已过期")
                     err.code = 401
                     next(err)
+                    return
                 }
 
                 const userBase = await req.sequelize.models.userBase.findOne({

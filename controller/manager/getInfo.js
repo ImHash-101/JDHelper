@@ -23,7 +23,7 @@ exports.getBeanInfo = async (req,res,next)=>{
     const qqNum = req.body.qqNum
 
     const userInfo = await req.sequelize.models.userInfo.findOne({
-        attributes:['id','nickName','beanNum','redBalance','couponNum'],
+        attributes:['pt_pin','nickName','beanNum','redBalance','couponNum'],
         where:{
             qqNum
         }
@@ -32,11 +32,11 @@ exports.getBeanInfo = async (req,res,next)=>{
 
 
     if(userInfo){
-        const id = userInfo.getDataValue('id')
+        const pt_pin = userInfo.getDataValue('pt_pin')
         const beanInfo = await req.sequelize.models.beanInfo.findOne({
             attributes:['todayIncome','todayOutcome','lastIncome','lastOutcome'],
             where:{
-                id
+                pt_pin
             }
         })
 

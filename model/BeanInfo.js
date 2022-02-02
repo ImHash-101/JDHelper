@@ -1,17 +1,16 @@
 const { DataTypes } = require("sequelize")
 module.exports = {
-    id: {
-        allowNull: false,
-        autoIncrement: false,
+    pt_pin: {
         primaryKey: true,
-        type: DataTypes.INTEGER,
+        allowNull: false,
+        type: DataTypes.STRING,
         references: {
-            model: 'users',
-            key: 'id'
+            model: 'userBases',
+            key: 'pt_pin'
         },
         onUpdate: 'cascade',
         onDelete: 'cascade' 
-        },
+    },
     // 今日收入
     todayIncome:{
         type: DataTypes.INTEGER,
