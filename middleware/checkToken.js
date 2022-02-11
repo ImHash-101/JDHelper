@@ -19,16 +19,14 @@ module.exports =(type)=>{
 
                 const manager = await req.sequelize.models.manager.findOne({
                     while:{
-                        id:{
-                            [Op.eq]:result.info.id
-                        }
+                        id:result.id
                     }
                 })
                 if(manager){
                     req.manager = manager.toJSON()
                     next()
                 }else{
-                    const err = new Error(`用户${result.info.userName}不存在`)
+                    const err = new Error(`用户${result.userName}不存在`)
                     err.code = 401
                     next(err)
                 }
@@ -58,9 +56,7 @@ module.exports =(type)=>{
 
                 const userBase = await req.sequelize.models.userBase.findOne({
                     where:{
-                        id:{
-                            [Op.eq]:result.info.id
-                        }
+                        py_pin:result.pt_pin
                     }
                 })
                 if(userBase){

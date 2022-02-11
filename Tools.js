@@ -1,4 +1,7 @@
 const request = require("request")
+const jwt = require("jsonwebtoken")
+const { PRIVATE_KEY } = require("../config")
+
 
 const sync_request = (url,options)=>{
     return new Promise((reslove,reject)=>{
@@ -9,7 +12,23 @@ const sync_request = (url,options)=>{
     })
 }
 
-const isLogin = async (CookieStr)=>{
+
+class Cookie{
+    
+    constructor(pt_pin,pt_key){
+        this.pt_pin = pt_pin
+        this.pt_key = pt_key
+    }
+    
+    toString(){
+        return "pt_pin="+this.pt_pin+";pt_key="+this.pt_key+";"
+    }
+
+}
+
+exports.Cookie = Cookie
+
+exports.isLogin = async (CookieStr)=>{
     const url = 'https://plogin.m.jd.com/cgi-bin/ml/islogin'
     const options = {
         method: 'GET',
@@ -28,6 +47,17 @@ const isLogin = async (CookieStr)=>{
     return islogin
     
 }
-module.exports = isLogin
-// const a =   isLogin("123")
-// console.log(a)
+
+
+exports.genToken = (data,privateKey=PRIVATE_KEY)=>{
+    return jwt.sign(data,privateKey)
+}
+exports.verfiyToken = (data,privateKey=PRIVATE_KEY)=>{
+    var result = null
+    try{
+        result = jwt.verify(data,privateKey)
+    }catch(err){
+        console.error(err.message)
+    }
+    return result
+}
