@@ -1,6 +1,6 @@
 const request = require("request")
 const jwt = require("jsonwebtoken")
-const { PRIVATE_KEY } = require("../config")
+const { PRIVATE_KEY } = require("./config")
 
 
 const sync_request = (url,options)=>{

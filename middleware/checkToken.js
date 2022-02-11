@@ -1,8 +1,4 @@
-const { cookie } = require("request")
-const { Op } = require("sequelize")
-const Cookie = require("../util/Cookie")
-const isLogin = require("../util/isLogin")
-const { verfiyToken } =require("../util/jwt")
+const { verfiyToken,Cookie } =require("../Tools")
 module.exports =(type)=>{
     switch(type){
         case 0:

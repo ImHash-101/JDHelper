@@ -4,7 +4,7 @@ const router = experss.Router()
 
 const { getManagerToken,verfiyToken } = require("../controller/token")
 const checkToken = require("../middleware/checkToken")
-const { needPasswd, needToken, needCookie, needQQNum } = require("../validation/token")
+const { needPasswd, needToken, needCookie, needQQNum } = require("../validations")
 const { getAlloverdue } =require("../controller/manager/allOverdue")
 const { bindQQ,updateKey } = require("../controller/manager/user")
 const { getUserInfo,getBeanInfo } = require("../controller/manager/getInfo")

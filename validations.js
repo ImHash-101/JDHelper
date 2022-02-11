@@ -1,4 +1,4 @@
-const validate = require("../middleware/validator")
+const validate = require("./middleware/validator")
 const { body } = require("express-validator")
 
 exports.genTokenValidations = validate([

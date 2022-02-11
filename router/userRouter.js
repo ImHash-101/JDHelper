@@ -2,7 +2,7 @@ const experss = require("express")
 
 const router = experss.Router()
 const { getUserToken,verfiyToken } =require("../controller/token")
-const { needCookie, needToken } = require("../validation/token")
+const { needCookie, needToken } = require("../validations")
 const checkToken = require("../middleware/checkToken")
 
 const { getUserInfo, getBeanInfo } = require("../controller/user/getInfo")
