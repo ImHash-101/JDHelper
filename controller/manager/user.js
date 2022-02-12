@@ -1,4 +1,4 @@
-const { addUser,updateUser } = require("../user")
+const { addUser,updateUser,bindQQ } = require("../user")
 const { isLogin,Cookie } = require("../../Tools")
 
 
@@ -27,17 +27,34 @@ exports.bindQQ = async (req,res,next)=>{
         pt_key:req.body.pt_key,
         qqNum :req.body.qqNum
     }
-
     const cookie = new Cookie(req_data.pt_pin,req_data.pt_key)
 
     if(isLogin(cookie.toString())==1){
-        await updateUser(req_data,req.sequelize.models.userBase)
-        res.status(200).end()
+        const result = await bindQQ(req_data,req.sequelize.models.userBase)
+        if(result==0){
+            res.status(200).end()
+        }else if(result==1){
+            const err = new Error("已经绑定过了")
+            err.code = 602
+            next(err)
+        }else if(result==-1){
+            const err = new Error("已被其他QQ绑定")
+            err.code = 602
+            next(err)
+        }else{
+            const err = new Error("未知错误")
+            err.code = 500
+            next(err)
+        }
+
     }else{
         const err = new Error("Cookie 无效")
         err.code = 601
         next(err)
     }
+
+
+
 }
 
 exports.updateKey = async (req,res,next)=>{
