@@ -31,8 +31,8 @@ exports.bindQQ = async (req,res,next)=>{
 
     if(await isLogin(cookie.toString())==1){
         const result = await bindQQ(req_data,req.sequelize.models.userBase)
-        if(result==0){
-            res.status(200).end()
+        if(result==0||result==2){
+            res.status(200).json({code:result})
         }else if(result==1){
             const err = new Error("已经绑定过了")
             err.code = 602

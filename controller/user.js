@@ -27,7 +27,7 @@ exports.bindQQ = async (dataDict,UserBase)=>{
     if(result==null){
         result = await UserBase.build(dataDict)
         await result.save()
-        return 0
+        return 2
     }else if(result.getDataValue('qqNum')==null){
         await result.update(dataDict)
         return 0
