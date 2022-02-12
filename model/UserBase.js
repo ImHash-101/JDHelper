@@ -16,5 +16,14 @@ module.exports ={
     auth_level:{
         type:DataTypes.INTEGER,
         defaultValue: 0
+    },
+    //qq号
+    qqNum:{
+        type:DataTypes.INTEGER
+    },
+    //是否过期
+    isOverdue:{
+        type:DataTypes.BOOLEAN,
+        defaultValue:false
     }
 }

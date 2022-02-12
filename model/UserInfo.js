@@ -20,10 +20,6 @@ module.exports = {
     headImageUrl:{
         type:DataTypes.STRING
     },
-    //qq号
-    qqNum:{
-        type:DataTypes.INTEGER
-    },
     // 京豆总数
     beanNum:{
         type: DataTypes.INTEGER,
@@ -38,10 +34,6 @@ module.exports = {
     redBalance:{
         type:DataTypes.DOUBLE,
         defaultValue:0
-    },
-    //是否过期
-    isOverdue:{
-        type:DataTypes.BOOLEAN,
-        defaultValue:false
     }
+
 }
