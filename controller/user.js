@@ -1,5 +1,7 @@
 exports.addUser = async (dataDict,UserBase)=>{
-    var result = await UserBase.findOne(dataDict.pt_pin)
+    var result = await UserBase.findOne({
+        where:{pt_pin:dataDict.pt_pin}
+    })
     if(result)return result
     result = await UserBase.build(dataDict)
     await result.save()
@@ -7,7 +9,9 @@ exports.addUser = async (dataDict,UserBase)=>{
 }
 
 exports.updateUser = async (dataDict,UserBase)=>{
-    var result = await UserBase.findOne(dataDict.pt_pin)
+    var result = await UserBase.findOne({
+        where:{pt_pin:dataDict.pt_pin}
+    })
     if(result==null){
         result = await UserBase.build(dataDict)
         await result.save()
@@ -17,7 +21,9 @@ exports.updateUser = async (dataDict,UserBase)=>{
 }
 
 exports.bindQQ = async (dataDict,UserBase)=>{
-    var result = await UserBase.findOne(dataDict.pt_pin)
+    var result = await UserBase.findOne({
+        where:{pt_pin:dataDict.pt_pin}
+    })
     if(result==null){
         result = await UserBase.build(dataDict)
         await result.save()
