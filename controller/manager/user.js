@@ -10,7 +10,7 @@ exports.addUser = async (req,res,next)=>{
 
     const cookie = new Cookie(req_data.pt_pin,req_data.pt_key)
 
-    if(isLogin(cookie.toString())==1){
+    if(await isLogin(cookie.toString())==1){
         const result = await addUser(req_data,req.sequelize.models.userBase)
 
     }else{
@@ -29,7 +29,7 @@ exports.bindQQ = async (req,res,next)=>{
     }
     const cookie = new Cookie(req_data.pt_pin,req_data.pt_key)
 
-    if(isLogin(cookie.toString())==1){
+    if(await isLogin(cookie.toString())==1){
         const result = await bindQQ(req_data,req.sequelize.models.userBase)
         if(result==0){
             res.status(200).end()
@@ -65,7 +65,7 @@ exports.updateKey = async (req,res,next)=>{
     }
     const cookie = new Cookie(req_data.pt_pin,req_data.pt_key)
 
-    if(isLogin(cookie.toString())==1){
+    if(await isLogin(cookie.toString())==1){
         await updateUser(req_data,req.sequelize.models.userBase)
         res.status(200).end()
     }else{

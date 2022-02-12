@@ -1,5 +1,5 @@
-const { addUser,updateUser } = require("./user")
-const { genToken,verfiyToken } = require("../Tools")
+const { addUser } = require("./user")
+const { genToken,isLogin } = require("../Tools")
 exports.getUserToken = async(req,res,next)=>{
     const req_data = {
         pt_pin:req.body.pt_pin,
@@ -8,7 +8,7 @@ exports.getUserToken = async(req,res,next)=>{
 
     const cookie = new Cookie(req_data.pt_pin,req_data.pt_key)
 
-    if(isLogin(cookie.toString())==1){
+    if(await isLogin(cookie.toString())==1){
         const result = await addUser(req_data,req.sequelize.models.userBase)
         if(result){
             res.status(200).json({
@@ -50,6 +50,6 @@ exports.getManagerToken = async(req,res,next)=>{
 }
 
 
-exports.verfiyToken = async(req,res,next)=>{
+exports.verfiyToken = async(req,res)=>{
     res.status(200).end()
 }
