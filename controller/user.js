@@ -21,6 +21,7 @@ exports.updateUser = async (dataDict,UserBase)=>{
 }
 
 exports.bindQQ = async (dataDict,UserBase)=>{
+    console.log(dataDict)
     var result = await UserBase.findOne({
         where:{pt_pin:dataDict.pt_pin}
     })
