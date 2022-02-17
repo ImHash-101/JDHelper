@@ -19,7 +19,7 @@ module.exports ={
     },
     //qq号
     qqNum:{
-        type:DataTypes.INTEGER
+        type:DataTypes.BIGINT
     },
     //是否过期
     isOverdue:{
